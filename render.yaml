@@ -1,0 +1,7 @@
+# Configuración de Render: sitio estático generado con Node (sin dependencias)
+services:
+  - type: web
+    name: backfocus
+    runtime: static
+    buildCommand: node herramientas/construir.mjs
+    staticPublishPath: ./sitio

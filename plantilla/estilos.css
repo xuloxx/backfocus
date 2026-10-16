@@ -1,0 +1,267 @@
+/* BackFocus · sitio web
+   Diseño: la hoja impresa del zine. Papel gris, tinta negra, Roboto Slab para títulos y Helvetica para leer.
+   Columna de lectura de ~66 caracteres, fotos que se salen de la columna, índice con números de página del impreso. */
+
+:root {
+  --papel: #e6e6e4;
+  --hoja: #f4f4f2;
+  --tinta: #161616;
+  --grafito: #343434;
+  --gris: #686866;
+  --linea: #bdbdba;
+  --etiqueta: #343434;
+  --etiqueta-texto: #f4f4f2;
+  --sombra: rgba(0, 0, 0, .28);
+
+  --display: "Roboto Slab", "Museo Slab", Rockwell, Georgia, serif;
+  --texto: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --t-xs: .8125rem;
+  --t-s: .9375rem;
+  --t-m: 1.125rem;
+  --t-l: 1.5rem;
+  --t-xl: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+  --t-xxl: clamp(2.6rem, 1.4rem + 5vw, 5.5rem);
+
+  --ancho: 1240px;
+  --lectura: 40rem;
+  --gutter-izq: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-der: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papel: #131313;
+    --hoja: #1c1c1c;
+    --tinta: #ebebe9;
+    --grafito: #cfcfcd;
+    --gris: #9a9a98;
+    --linea: #3a3a39;
+    --etiqueta: #ebebe9;
+    --etiqueta-texto: #131313;
+    --sombra: rgba(0, 0, 0, .6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --papel: #131313;
+  --hoja: #1c1c1c;
+  --tinta: #ebebe9;
+  --grafito: #cfcfcd;
+  --gris: #9a9a98;
+  --linea: #3a3a39;
+  --etiqueta: #ebebe9;
+  --etiqueta-texto: #131313;
+  --sombra: rgba(0, 0, 0, .6);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font: 400 1rem/1.55 var(--texto);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .18em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--tinta); outline-offset: 3px; }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+.envoltura {
+  width: 100%;
+  max-width: calc(var(--ancho) + 32px);
+  margin-inline: auto;
+  padding-left: var(--gutter-izq);
+  padding-right: var(--gutter-der);
+}
+.saltar { position: absolute; left: -999px; }
+.saltar:focus { left: var(--gutter-izq); top: 8px; background: var(--hoja); padding: 8px 12px; z-index: 10; }
+
+/* ---------- Piezas del zine ---------- */
+.marca { font: 900 1.75rem/1 var(--display); letter-spacing: -.01em; text-decoration: none; }
+.etiqueta {
+  display: inline-block; background: var(--etiqueta); color: var(--etiqueta-texto);
+  font: 700 var(--t-xs)/1 var(--texto); letter-spacing: .1em; text-transform: uppercase;
+  padding: .45em .7em; text-decoration: none;
+}
+.pagina-impresa { font: 400 var(--t-xs)/1.3 var(--texto); color: var(--gris); letter-spacing: .02em; }
+/* Las cajas blancas de la portada del #01 */
+.caja { display: table; background: var(--hoja); color: var(--tinta); font: 400 var(--t-m)/1.3 var(--display); padding: .1em .5em; }
+.cajas { display: flex; flex-direction: column; gap: .45rem; align-items: flex-start; }
+.boton {
+  display: inline-flex; align-items: center; gap: .5em;
+  font: 700 var(--t-s)/1 var(--texto); text-decoration: none;
+  padding: .85em 1.15em; border: 2px solid var(--tinta);
+}
+.boton.lleno { background: var(--tinta); color: var(--papel); }
+.boton:hover { background: var(--tinta); color: var(--papel); }
+
+/* ---------- Cabecera y pie ---------- */
+.cabecera { border-bottom: 1px solid var(--linea); }
+.cabecera .envoltura { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .75rem 2rem; padding-block: 1.1rem; }
+.cabecera .marca small { display: block; font: 700 var(--t-xs)/1.2 var(--texto); letter-spacing: 0; margin-top: .25rem; }
+.menu { display: flex; flex-wrap: wrap; gap: .25rem 1.4rem; font: 700 var(--t-s)/1 var(--texto); }
+.menu a { text-decoration: none; padding-block: .35rem; border-bottom: 2px solid transparent; }
+.menu a:hover, .menu a[aria-current="page"] { border-bottom-color: var(--tinta); }
+
+.pie { margin-top: 6rem; border-top: 1px solid var(--linea); background: var(--hoja); }
+.pie .envoltura { display: grid; gap: 2rem; grid-template-columns: 2fr 1fr 1fr; padding-block: 3rem 2.5rem; }
+.pie p { margin: .6rem 0 0; color: var(--gris); max-width: 34rem; font-size: var(--t-s); }
+.pie h2 { font: 700 var(--t-xs)/1 var(--texto); letter-spacing: .1em; text-transform: uppercase; margin: 0 0 .9rem; }
+.pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .45rem; font-size: var(--t-s); }
+.pie .legal { grid-column: 1 / -1; border-top: 1px solid var(--linea); padding-top: 1.2rem; font-size: var(--t-xs); color: var(--gris); }
+
+/* ---------- Inicio: el número como portada ---------- */
+.numero-portada { padding-block: 3.5rem 4rem; }
+.numero-portada .envoltura { display: grid; gap: 3rem 4rem; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: start; }
+.objeto { box-shadow: 0 30px 60px -18px var(--sombra), 0 6px 14px -6px var(--sombra); background: #fff; }
+.numero-portada .objeto { width: 100%; max-width: 30rem; }
+.numero-portada .envoltura > a { position: sticky; top: 2rem; }
+.antetitulo { font: 700 var(--t-xs)/1.2 var(--texto); letter-spacing: .1em; text-transform: uppercase; margin: 0 0 1rem; }
+.numero-portada h1 { font: 300 var(--t-xxl)/1.02 var(--display); letter-spacing: -.02em; margin: 0; }
+.numero-portada .entrada { font-size: var(--t-m); max-width: 34rem; margin: 1.4rem 0 0; color: var(--grafito); }
+.acciones { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+
+/* Índice como el recuadro «Contenidos» del impreso */
+.indice { margin-top: 2.8rem; background: var(--hoja); padding: 1.4rem 1.4rem .6rem; }
+.indice h2 { font: 700 var(--t-m)/1 var(--display); margin: 0 0 .6rem; }
+.indice ol { list-style: none; margin: 0; padding: 0; }
+.indice li a {
+  display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: 1rem; align-items: baseline;
+  padding: .7rem 0; border-top: 1px solid var(--linea); text-decoration: none;
+}
+.indice li:first-child a { border-top: 0; }
+.indice .pag { font: 700 var(--t-s)/1 var(--texto); font-variant-numeric: tabular-nums; color: var(--gris); }
+.indice .nom { font: 400 var(--t-m)/1.25 var(--display); }
+.indice .por { display: block; font: 400 var(--t-xs)/1.3 var(--texto); color: var(--gris); margin-top: .2rem; }
+.indice a:hover .nom { text-decoration: underline; text-underline-offset: .18em; }
+
+/* ---------- Encabezado de sección ---------- */
+.seccion { padding-block: 3rem 1rem; }
+.seccion-titulo { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 2rem; border-top: 2px solid var(--tinta); padding-top: 1rem; margin-bottom: 2rem; }
+.seccion-titulo h2, .seccion-titulo h1 { font: 300 var(--t-xl)/1.1 var(--display); margin: 0; }
+.seccion-titulo p { margin: 0; color: var(--gris); font-size: var(--t-s); flex: 0 1 26rem; }
+.seccion-titulo h1, .seccion-titulo h2 { flex: 1 1 auto; }
+.filtros { display: flex; flex-wrap: wrap; gap: .5rem; }
+.filtros a { font: 700 var(--t-xs)/1 var(--texto); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; padding: .55em .8em; border: 1px solid var(--tinta); }
+.filtros a[aria-current="page"], .filtros a:hover { background: var(--etiqueta); color: var(--etiqueta-texto); border-color: var(--etiqueta); }
+
+/* ---------- Tarjetas de textos ---------- */
+.rejilla { display: grid; gap: 3rem 2rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.tarjeta { display: flex; flex-direction: column; gap: .7rem; min-width: 0; }
+.tarjeta a.foto { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--linea); }
+.tarjeta a.foto img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.tarjeta a.foto:hover img { transform: scale(1.03); }
+.tarjeta .meta { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; margin-top: .4rem; }
+.tarjeta h3 { font: 300 var(--t-l)/1.15 var(--display); margin: 0; }
+.tarjeta h3 a { text-decoration: none; }
+.tarjeta h3 a:hover { text-decoration: underline; }
+.tarjeta .bajada { margin: 0; color: var(--grafito); font-size: var(--t-s); }
+.tarjeta .autor { margin: 0; font: italic 400 var(--t-s)/1.3 var(--texto); color: var(--gris); }
+
+/* ---------- Banda con cita ---------- */
+.banda { background: var(--tinta); color: var(--papel); margin-top: 5rem; }
+.banda .envoltura { padding-block: 5rem; display: grid; gap: 1.5rem; }
+.banda blockquote { margin: 0; font: 300 var(--t-xl)/1.25 var(--display); max-width: 52rem; }
+.banda blockquote::before { content: "«"; }
+.banda blockquote::after { content: "»"; }
+.banda p { margin: 0; font: italic 400 var(--t-s)/1.4 var(--texto); }
+.banda a { font-weight: 700; font-style: normal; }
+
+/* ---------- Bloque «qué es» ---------- */
+.que-es { display: grid; gap: 2rem 4rem; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+.que-es .grande { font: 300 var(--t-l)/1.35 var(--display); margin: 0; }
+.que-es p { margin: 0 0 1rem; color: var(--grafito); max-width: var(--lectura); }
+
+/* ---------- Artículo ---------- */
+.articulo-cabecera { padding-block: 3.5rem 2.5rem; }
+.articulo-cabecera .envoltura { max-width: calc(64rem + 32px); }
+.articulo-cabecera .meta { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; margin-bottom: 1.6rem; }
+.articulo-cabecera h1 { font: 300 var(--t-xxl)/1.02 var(--display); letter-spacing: -.02em; margin: 0; }
+.articulo-cabecera .bajada { font: 400 var(--t-l)/1.3 var(--texto); color: var(--gris); margin: 1rem 0 0; max-width: 46rem; }
+.articulo-cabecera .firma { font: italic 400 var(--t-m)/1.3 var(--texto); margin: 1.4rem 0 0; }
+
+.foto-principal { margin: 0 auto; max-width: calc(76rem + 32px); padding-left: var(--gutter-izq); padding-right: var(--gutter-der); }
+.foto-principal img { width: 100%; }
+figcaption { font: italic 400 var(--t-xs)/1.45 var(--texto); color: var(--gris); margin-top: .6rem; }
+
+.cuerpo { max-width: calc(var(--lectura) + 32px); margin: 3rem auto 0; padding-left: var(--gutter-izq); padding-right: var(--gutter-der); font-size: var(--t-m); line-height: 1.68; }
+.cuerpo > p { margin: 0 0 1.3em; }
+.cuerpo > p.inicial::first-letter { float: left; font: 900 4.6em/.8 var(--display); margin: .07em .09em 0 0; }
+.cuerpo h2, .cuerpo h3 { font: 400 var(--t-l)/1.25 var(--display); margin: 2.4em 0 .8em; }
+.cuerpo .pregunta { font-weight: 700; margin: 2.2em 0 .7em; }
+.cuerpo blockquote.destacado p { margin: 0; }
+.cuerpo blockquote.destacado {
+  margin: 3rem 0; padding: 1.2rem 0; border-top: 2px solid var(--tinta); border-bottom: 1px solid var(--linea);
+  font: 300 var(--t-xl)/1.25 var(--display); letter-spacing: -.01em;
+}
+.cuerpo figure { margin: 2.6em calc(-1 * min(9rem, (100vw - var(--lectura)) / 2 - 16px)); }
+.cuerpo figure img { width: 100%; }
+.galeria { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 2.6em calc(-1 * min(9rem, (100vw - var(--lectura)) / 2 - 16px)); }
+.galeria figure { margin: 0; }
+.galeria img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 4 / 5; }
+.galeria figure.ancha { grid-column: 1 / -1; }
+.galeria figure.ancha img { aspect-ratio: auto; }
+
+.articulo-pie { max-width: calc(var(--lectura) + 32px); margin: 4rem auto 0; padding-left: var(--gutter-izq); padding-right: var(--gutter-der); }
+.nota-impresa { border-top: 2px solid var(--tinta); padding-top: 1rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
+.nota-impresa p { margin: 0; font-size: var(--t-s); color: var(--grafito); max-width: 28rem; }
+.copiar { font: 700 var(--t-s)/1 var(--texto); background: none; color: var(--tinta); border: 2px solid var(--tinta); padding: .7em 1em; cursor: pointer; }
+.copiar:hover { background: var(--tinta); color: var(--papel); }
+.siguientes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2.5rem; }
+.siguientes a { display: block; text-decoration: none; background: var(--hoja); padding: 1.1rem 1.2rem; min-width: 0; }
+.siguientes .dir { font: 700 var(--t-xs)/1 var(--texto); letter-spacing: .1em; text-transform: uppercase; color: var(--gris); }
+.siguientes .nom { display: block; font: 400 var(--t-m)/1.25 var(--display); margin-top: .5rem; }
+.siguientes a:last-child { text-align: right; }
+.siguientes a:hover .nom { text-decoration: underline; }
+
+/* ---------- Número ---------- */
+.numero-detalle .envoltura { display: grid; gap: 3rem 4rem; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); align-items: start; }
+.tapas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.tapas figure { margin: 0; }
+.ficha { display: grid; gap: 2rem; }
+.ficha h2 { font: 700 var(--t-xs)/1 var(--texto); letter-spacing: .1em; text-transform: uppercase; margin: 0 0 .8rem; }
+.ficha p { margin: 0; color: var(--grafito); }
+.cajas-oscuras { background: var(--grafito); padding: 1.2rem; }
+.cajas-oscuras h3 { font: 700 var(--t-l)/1 var(--display); color: var(--papel); margin: 0 0 .6rem; }
+
+/* ---------- Nosotros y contacto ---------- */
+.equipo { display: grid; gap: 2.5rem 2rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.equipo h3 { font: 400 var(--t-l)/1.2 var(--display); margin: 0 0 .7rem; }
+.equipo p { margin: 0; color: var(--grafito); font-size: var(--t-s); }
+.contacto-datos { display: grid; gap: 1rem; margin-top: 2rem; }
+.contacto-datos div { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: baseline; border-top: 1px solid var(--linea); padding-top: 1rem; }
+.contacto-datos dt { font: 700 var(--t-xs)/1 var(--texto); letter-spacing: .1em; text-transform: uppercase; min-width: 6rem; }
+.contacto-datos dd { margin: 0; font: 400 var(--t-l)/1.2 var(--display); word-break: break-word; }
+
+.texto-simple { max-width: calc(var(--lectura) + 32px); margin-inline: auto; padding-left: var(--gutter-izq); padding-right: var(--gutter-der); font-size: var(--t-m); }
+.texto-simple p { color: var(--grafito); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .equipo { grid-template-columns: 1fr; }
+  .pie .envoltura { grid-template-columns: 1fr 1fr; }
+  .pie .envoltura > :first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  .numero-portada .envoltura, .que-es, .numero-detalle .envoltura { grid-template-columns: 1fr; }
+  .numero-portada .objeto { max-width: 20rem; }
+  .numero-portada .envoltura > a { position: static; }
+  .cuerpo figure, .galeria { margin-inline: 0; }
+}
+@media (max-width: 560px) {
+  .rejilla { grid-template-columns: 1fr; }
+  .galeria { grid-template-columns: 1fr; }
+  .galeria img { aspect-ratio: auto; }
+  .siguientes { grid-template-columns: 1fr; }
+  .siguientes a:last-child { text-align: left; }
+  .pie .envoltura { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta a.foto img { transition: none; }
+}

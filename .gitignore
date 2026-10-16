@@ -1,0 +1,6 @@
+# Se genera con: node herramientas/construir.mjs
+sitio/
+# Exportación original de WordPress (solo se usa para volver a importar)
+_importado/
+backfocus-contenido.zip
+node_modules/

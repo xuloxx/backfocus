@@ -1,0 +1,25 @@
+# Sitio web de BackFocus
+
+Sitio estático del fanzine BackFocus: portada del número, los textos completos con sus fotos, secciones, equipo y contacto. Mantiene las mismas direcciones que backfocus.cl (`/la-sospecha-permanente/`, `/about/`, `/contacto/`, `/category/ensayos/`…), así que los enlaces ya compartidos siguen funcionando.
+
+## Cómo está armado
+
+- `contenido/sitio.json`: datos del zine. Aquí van el **correo**, el **Instagram**, el **precio** y **dónde comprar** (hoy vacíos), el equipo, el número y los datos de cada texto (título, bajada, autor, sección y página del impreso).
+- `contenido/textos.json`: los textos completos, importados desde WordPress.
+- `contenido/img/`: las fotos.
+- `plantilla/estilos.css`: el diseño.
+- `herramientas/construir.mjs`: genera el sitio en `sitio/`.
+- `herramientas/importar.mjs`: vuelve a convertir una exportación de WordPress (`_importado/`) en `contenido/`.
+
+## Ver el sitio en tu computador
+
+```
+node herramientas/construir.mjs
+node ../instagram/herramientas/servidor.mjs sitio 5180
+```
+
+Luego abre http://localhost:5180
+
+## Publicar en Render
+
+Render lee `render.yaml`: ejecuta `node herramientas/construir.mjs` y publica la carpeta `sitio/`. Cada vez que subas cambios a GitHub, Render vuelve a publicar solo.
