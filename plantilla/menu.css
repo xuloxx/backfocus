@@ -17,7 +17,11 @@
 .menu-boton { display: none; }
 
 @media (max-width: 760px) {
-  .bf-js .cabecera .envoltura { flex-wrap: nowrap; align-items: center; }
+  /* La barra queda pegada arriba al hacer scroll */
+  .cabecera { position: sticky; top: env(safe-area-inset-top, 0px); }
+  /* Los enlaces a una sección (#temario, #conseguir…) no quedan tapados por la barra */
+  html { scroll-padding-top: 5.5rem; }
+  .bf-js .cabecera .envoltura { flex-wrap: nowrap; align-items: center; padding-block: .8rem; }
   .bf-js .menu-boton {
     display: inline-grid; place-content: center; gap: 7px;
     width: 44px; height: 44px; margin-right: -8px; padding: 0;

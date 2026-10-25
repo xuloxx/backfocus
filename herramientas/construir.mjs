@@ -431,6 +431,8 @@ const estiloMenu = `<link rel="stylesheet" href="https://fonts.googleapis.com/cs
 /* Colores y tipografías del menú dentro de la página del workshop (siempre en claro) */
 .bf-sitio{--papel:#f4f4f2;--tinta:#161616;--linea:#bdbdba;--display:"Roboto Slab",Rockwell,Georgia,serif;--texto:"Helvetica Neue",Helvetica,Arial,sans-serif;--t-xs:.8125rem;--t-s:.9375rem;--ancho:1240px;--gutter-izq:max(16px,env(safe-area-inset-left,0px));--gutter-der:max(16px,env(safe-area-inset-right,0px));font-family:var(--texto);filter:none!important;position:relative;z-index:60}
 .bf-sitio .marca small{font-family:var(--texto)}
+/* En el workshop el menú va dentro de .bf-sitio: es ese contenedor el que queda pegado arriba en celular */
+@media (max-width:760px){.bf-sitio{position:sticky;top:env(safe-area-inset-top,0px)}.bf-sitio .cabecera{position:relative}}
 ${menuCss}
 </style>`;
 for (const carpeta of fs.existsSync(path.join(base, "paginas")) ? fs.readdirSync(path.join(base, "paginas")) : []) {
