@@ -248,3 +248,22 @@ figcaption { font: italic 400 var(--t-xs)/1.45 var(--texto); color: var(--gris);
 @media (prefers-reduced-motion: reduce) {
   .tarjeta a.foto img { transition: none; }
 }
+
+/* ---------- Formulario de contacto ---------- */
+.formulario { display: grid; gap: 1.2rem; margin-top: 2rem; padding-top: 1.6rem; border-top: 2px solid var(--tinta); }
+.formulario .campo { display: grid; gap: .45rem; }
+.formulario label { font: 700 var(--t-xs)/1 var(--texto); letter-spacing: .1em; text-transform: uppercase; }
+.formulario input, .formulario select, .formulario textarea {
+  width: 100%; font: 400 1rem/1.45 var(--texto); color: var(--tinta);
+  background: var(--hoja); border: 1px solid var(--linea); border-radius: 0; padding: .8rem .9rem;
+}
+.formulario textarea { resize: vertical; min-height: 9rem; }
+.formulario input:focus, .formulario select:focus, .formulario textarea:focus { outline: 2px solid var(--tinta); outline-offset: 1px; border-color: var(--tinta); }
+.formulario .boton { cursor: pointer; font-family: var(--texto); }
+.formulario .boton:disabled { opacity: .6; cursor: progress; }
+.acciones-formulario { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem 1.2rem; }
+.estado-formulario { margin: 0; font-size: var(--t-s); }
+.estado-formulario.ok { color: var(--tinta); font-weight: 700; }
+.estado-formulario.error { color: #ff8a7a; }
+.nota-formulario { margin: 0; font-size: var(--t-xs); color: var(--gris); }
+.trampa { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }

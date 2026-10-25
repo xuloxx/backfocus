@@ -10,6 +10,7 @@ Sitio estático del fanzine BackFocus: portada del número, los textos completos
 - `plantilla/estilos.css`: el diseño.
 - `plantilla/menu.css`: la cabecera y el menú (en celular, menú de hamburguesa a pantalla completa). Se usa en todo el sitio y en el workshop.
 - `herramientas/construir.mjs`: genera el sitio en `sitio/`.
+- Formulario de contacto: lo envía FormSubmit (formsubmit.co) al correo `contacto.formulario` de `sitio.json`. La primera vez hay que activarlo desde el correo que manda FormSubmit.
 - `paginas/workshop/`: la landing del Workshop de Fotografía de Protestas (diseño propio). Se publica tal cual en `/workshop/`.
 - `herramientas/importar.mjs`: vuelve a convertir una exportación de WordPress (`_importado/`) en `contenido/`.
 

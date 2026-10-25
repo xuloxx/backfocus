@@ -397,7 +397,94 @@ escribir("/contacto/", documento({
   </div>
   <div class="texto-simple">
     <p class="grande" style="font:300 var(--t-l)/1.35 var(--display);color:var(--tinta)">${esc(S.contacto.texto)}</p>
-    ${datos.length ? `<dl class="contacto-datos">${datos.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>` : `<p>Muy pronto publicaremos aquí nuestro correo y nuestra cuenta de Instagram.</p>`}
+    ${S.contacto.formulario ? formularioContacto() : ""}
+    ${datos.length ? `<dl class="contacto-datos">${datos.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>` : ""}
+  </div>
+</section>`,
+  script: S.contacto.formulario ? scriptFormulario() : "",
+}));
+
+// Formulario de contacto: lo envía FormSubmit (formsubmit.co) al correo de contacto.formulario en sitio.json.
+// La primera vez, FormSubmit manda a ese correo un enlace para activar el formulario.
+function formularioContacto() {
+  const destino = esc(S.contacto.formulario);
+  const motivos = ["Quiero colaborar", "Quiero aparecer en el zine", "Quiero conseguir el #01", "Workshop", "Otro"];
+  return `
+    <form class="formulario" id="formulario-contacto" action="https://formsubmit.co/${destino}" method="POST" data-ajax="https://formsubmit.co/ajax/${destino}">
+      <input type="hidden" name="_subject" value="Nuevo mensaje desde la web de BackFocus">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="${S.dominio}/contacto/gracias/">
+      <p class="trampa" aria-hidden="true"><label>No completar <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></p>
+      <div class="campo">
+        <label for="contacto-nombre">Nombre</label>
+        <input id="contacto-nombre" name="nombre" type="text" autocomplete="name" required maxlength="120">
+      </div>
+      <div class="campo">
+        <label for="contacto-correo">Correo</label>
+        <input id="contacto-correo" name="email" type="email" autocomplete="email" required maxlength="160">
+      </div>
+      <div class="campo">
+        <label for="contacto-motivo">Motivo</label>
+        <select id="contacto-motivo" name="motivo">${motivos.map((m) => `<option>${m}</option>`).join("")}</select>
+      </div>
+      <div class="campo">
+        <label for="contacto-mensaje">Mensaje</label>
+        <textarea id="contacto-mensaje" name="mensaje" rows="6" required maxlength="5000"></textarea>
+      </div>
+      <div class="acciones-formulario">
+        <button class="boton lleno" type="submit">Enviar mensaje</button>
+        <p class="estado-formulario" id="estado-formulario" role="status" aria-live="polite"></p>
+      </div>
+      <p class="nota-formulario">Usamos tus datos solo para responderte.</p>
+    </form>`;
+}
+function scriptFormulario() {
+  return `<script>
+(() => {
+  const form = document.getElementById("formulario-contacto");
+  if (!form) return;
+  const estado = document.getElementById("estado-formulario");
+  const boton = form.querySelector("button[type=submit]");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    boton.disabled = true;
+    estado.className = "estado-formulario";
+    estado.textContent = "Enviando…";
+    try {
+      const r = await fetch(form.dataset.ajax, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) });
+      const datos = await r.json().catch(() => ({}));
+      if (/activat/i.test(datos.message || "")) {
+        estado.className = "estado-formulario error";
+        estado.textContent = "El formulario aún no está activado. Revisa el correo de BackFocus y confirma la activación de FormSubmit.";
+        return;
+      }
+      if (!r.ok || String(datos.success) === "false") throw new Error(datos.message || "envío rechazado");
+      form.reset();
+      estado.className = "estado-formulario ok";
+      estado.textContent = "Mensaje enviado. Te responderemos lo antes posible.";
+    } catch (err) {
+      estado.className = "estado-formulario error";
+      estado.textContent = "No se pudo enviar el mensaje. Revisa tu conexión e inténtalo de nuevo en unos minutos.";
+    } finally {
+      boton.disabled = false;
+    }
+  });
+})();
+</script>`;
+}
+
+// Página de agradecimiento (cuando el formulario se envía sin JavaScript)
+escribir("/contacto/gracias/", documento({
+  titulo: "Mensaje enviado",
+  descripcion: "Gracias por escribirnos.",
+  ruta: "/contacto/gracias/",
+  cuerpo: `
+<section class="seccion">
+  <div class="envoltura">
+    <div class="seccion-titulo"><h1>Mensaje enviado</h1></div>
+    <p>Gracias por escribirnos. Te responderemos lo antes posible. <a href="/">Volver al inicio</a>.</p>
   </div>
 </section>`,
 }));
