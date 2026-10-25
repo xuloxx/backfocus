@@ -15,7 +15,7 @@ Sitio estático del fanzine BackFocus: portada del número, los textos completos
 
 ```
 node herramientas/construir.mjs
-node ../instagram/herramientas/servidor.mjs sitio 5180
+node herramientas/servidor.mjs
 ```
 
 Luego abre http://localhost:5180
