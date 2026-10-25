@@ -30,6 +30,16 @@ const seccionDe = (t) => S.secciones[t.seccion];
 // ---------- Piezas comunes ----------
 const menu = [["/", "Inicio"], ["/textos/", "Textos"], ["/numero-01/", "Número 01"], ["/workshop/", "Workshop"], ["/about/", "Nosotros"], ["/contacto/", "Contacto"]];
 
+// Cabecera con el menú del sitio (también se inserta en las páginas de /paginas)
+const cabecera = (ruta) => `<header class="cabecera">
+  <div class="envoltura">
+    <a class="marca" href="/">${esc(S.nombre)}<small>${esc(S.bajada)}</small></a>
+    <nav class="menu" aria-label="Principal">
+      ${menu.map(([href, nombre]) => `<a href="${href}"${ruta === href ? ' aria-current="page"' : ""}>${nombre}</a>`).join("\n      ")}
+    </nav>
+  </div>
+</header>`;
+
 function documento({ titulo, descripcion, ruta, imagen, cuerpo, script = "" }) {
   const tituloCompleto = ruta === "/" ? `${S.nombre} · ${S.bajada}` : `${titulo} · ${S.nombre}`;
   const og = imagen ? `${S.dominio}/img/${imagen}` : `${S.dominio}/img/${N.portada}`;
@@ -56,14 +66,7 @@ function documento({ titulo, descripcion, ruta, imagen, cuerpo, script = "" }) {
 </head>
 <body>
 <a class="saltar" href="#contenido">Saltar al contenido</a>
-<header class="cabecera">
-  <div class="envoltura">
-    <a class="marca" href="/">${esc(S.nombre)}<small>${esc(S.bajada)}</small></a>
-    <nav class="menu" aria-label="Principal">
-      ${menu.map(([href, nombre]) => `<a href="${href}"${ruta === href ? ' aria-current="page"' : ""}>${nombre}</a>`).join("\n      ")}
-    </nav>
-  </div>
-</header>
+${cabecera(ruta)}
 <main id="contenido">
 ${cuerpo}
 </main>
@@ -396,3 +399,25 @@ fs.writeFileSync(path.join(salida, "sitemap.xml"), `<?xml version="1.0" encoding
 
 const faltan = [!S.contacto.correo && "correo", !S.contacto.instagram && "instagram", !N.precio && "precio", !N.dondeComprar && "dónde comprar"].filter(Boolean);
 console.log(`Sitio generado en /sitio: ${rutas.length} páginas.${faltan.length ? ` Faltan datos en contenido/sitio.json: ${faltan.join(", ")}.` : ""}`);
+
+// ---------- Menú del sitio en las páginas con diseño propio ----------
+// Cada página de /paginas marca dónde va el menú con <!-- menu-backfocus -->. Como esas páginas no cargan
+// estilos.css, el menú lleva sus propios estilos, siempre en claro.
+const estiloMenu = `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@900&display=swap">
+<style>
+.bf-sitio{background:#f4f4f2;color:#161616;border-bottom:1px solid #bdbdba;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:relative;z-index:50}
+.bf-sitio .envoltura{max-width:1272px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.75rem 2rem;padding-block:1.1rem}
+.bf-sitio .marca{font:900 1.75rem/1 "Roboto Slab",Rockwell,Georgia,serif;letter-spacing:-.01em;color:#161616;text-decoration:none}
+.bf-sitio .marca small{display:block;font:700 .8125rem/1.2 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:0;margin-top:.25rem}
+.bf-sitio .menu{display:flex;flex-wrap:wrap;gap:.25rem 1.4rem;font:700 .9375rem/1 "Helvetica Neue",Helvetica,Arial,sans-serif}
+.bf-sitio .menu a{color:#161616;text-decoration:none;padding-block:.35rem;border-bottom:2px solid transparent}
+.bf-sitio .menu a:hover,.bf-sitio .menu a[aria-current="page"]{border-bottom-color:#161616}
+.bf-sitio a:focus-visible{outline:2px solid #161616;outline-offset:3px}
+</style>`;
+for (const carpeta of fs.existsSync(path.join(base, "paginas")) ? fs.readdirSync(path.join(base, "paginas")) : []) {
+  const archivo = path.join(salida, carpeta, "index.html");
+  if (!fs.existsSync(archivo)) continue;
+  const html = fs.readFileSync(archivo, "utf8");
+  if (!html.includes("<!-- menu-backfocus -->")) { console.warn(`Aviso: paginas/${carpeta}/index.html no tiene <!-- menu-backfocus -->`); continue; }
+  fs.writeFileSync(archivo, html.replace("<!-- menu-backfocus -->", `${estiloMenu}\n<div class="bf-sitio">${cabecera(`/${carpeta}/`).replace('<header class="cabecera">', "<header>")}</div>`));
+}
