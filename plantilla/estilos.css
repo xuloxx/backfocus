@@ -217,7 +217,10 @@ figcaption { font: italic 400 var(--t-xs)/1.45 var(--texto); color: var(--gris);
 
 /* ---------- Nosotros y contacto ---------- */
 .equipo { display: grid; gap: 2.5rem 2rem; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.equipo h3 { font: 400 var(--t-l)/1.2 var(--display); margin: 0 0 .7rem; }
+.equipo .persona { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 1rem 1.2rem; align-items: end; }
+.equipo .retrato { width: 6rem; height: 8rem; object-fit: cover; filter: grayscale(1); background: var(--hoja); }
+.equipo .persona p { grid-column: 1 / -1; }
+.equipo h3 { font: 400 var(--t-l)/1.2 var(--display); margin: 0; }
 .equipo p { margin: 0; color: var(--grafito); font-size: var(--t-s); }
 .contacto-datos { display: grid; gap: 1rem; margin-top: 2rem; }
 .contacto-datos div { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: baseline; border-top: 1px solid var(--linea); padding-top: 1rem; }

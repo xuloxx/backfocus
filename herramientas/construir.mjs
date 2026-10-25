@@ -354,7 +354,7 @@ escribir("/about/", documento({
   <div class="envoltura">
     <div class="seccion-titulo"><h2>Equipo</h2></div>
     <div class="equipo">
-      ${S.equipo.map((p) => `<div><h3>${esc(p.nombre)}</h3><p>${esc(p.bio)}</p></div>`).join("\n      ")}
+      ${S.equipo.map((p) => `<div class="persona">${p.foto ? `<img class="retrato" src="/img/${esc(p.foto)}" alt="Retrato de ${esc(p.nombre)}" width="96" height="128" loading="lazy" style="object-position:${esc(p.encuadre || "50% 30%")}">` : ""}<h3>${esc(p.nombre)}</h3><p>${esc(p.bio)}</p></div>`).join("\n      ")}
     </div>
   </div>
 </section>`,

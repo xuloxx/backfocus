@@ -11,9 +11,24 @@
     "texto": "Si deseas colaborar con nosotros, aparecer en el zine o tienes alguna idea, escríbenos. Te responderemos lo antes posible."
   },
   "equipo": [
-    { "nombre": "Freddy Briones Parra", "bio": "Diseñador de información editorial y web. Diplomado en tipografía. Fotógrafo autodidacta especializado en revelado y postproducción digital. Su trabajo se ha desarrollado entre editoriales, agencias de diseño y trabajo freelance, principalmente en el desarrollo de proyectos editoriales como libros, revistas, sitios web y en edición y postproducción de imágenes. Su interés por las artes visuales atraviesa el cine, la lectura, la psicología detrás de la imagen, el diseño y la fotografía." },
-    { "nombre": "Domingo Fernández K.", "bio": "Fotógrafo y comunicador audiovisual formado en el Instituto Profesional ARCOS, con estudios en fotografía y gestión de proyectos en EFTI Madrid. Su trabajo se ha desarrollado entre la fotografía documental, la dirección de fotografía y la gestión cultural. Es director y fundador de Pucón Foto Fest y ha participado en exposiciones en España y Alemania. En 2026 fue ganador del XII Premio Internacional de Fotografía Jalón Ángel, en la categoría Migración y Frontera." },
-    { "nombre": "Christian Carl", "bio": "Comunicador audiovisual y fotógrafo formado en ARCOS, con estudios en fotografía y artes contemporáneas. Su trabajo transita entre la realización audiovisual, la fotografía y la experimentación con nuevas tecnologías. Ha desarrollado proyectos para televisión, publicidad y plataformas digitales. Es productor y realizador audiovisual de Pucón Foto Fest. Su práctica explora los cruces entre imagen, cine, tecnología y cultura contemporánea." }
+    {
+      "nombre": "Freddy Briones Parra",
+      "bio": "Diseñador de información editorial y web. Diplomado en tipografía. Fotógrafo autodidacta especializado en revelado y postproducción digital. Su trabajo se ha desarrollado entre editoriales, agencias de diseño y trabajo freelance, principalmente en el desarrollo de proyectos editoriales como libros, revistas, sitios web y en edición y postproducción de imágenes. Su interés por las artes visuales atraviesa el cine, la lectura, la psicología detrás de la imagen, el diseño y la fotografía.",
+      "foto": "equipo-freddy-briones-parra.jpg",
+      "encuadre": "50% 20%"
+    },
+    {
+      "nombre": "Domingo Fernández K.",
+      "bio": "Fotógrafo y comunicador audiovisual formado en el Instituto Profesional ARCOS, con estudios en fotografía y gestión de proyectos en EFTI Madrid. Su trabajo se ha desarrollado entre la fotografía documental, la dirección de fotografía y la gestión cultural. Es director y fundador de Pucón Foto Fest y ha participado en exposiciones en España y Alemania. En 2026 fue ganador del XII Premio Internacional de Fotografía Jalón Ángel, en la categoría Migración y Frontera.",
+      "foto": "equipo-domingo-fernandez-k.jpg",
+      "encuadre": "50% 35%"
+    },
+    {
+      "nombre": "Christian Carl",
+      "bio": "Comunicador audiovisual y fotógrafo formado en ARCOS, con estudios en fotografía y artes contemporáneas. Su trabajo transita entre la realización audiovisual, la fotografía y la experimentación con nuevas tecnologías. Ha desarrollado proyectos para televisión, publicidad y plataformas digitales. Es productor y realizador audiovisual de Pucón Foto Fest. Su práctica explora los cruces entre imagen, cine, tecnología y cultura contemporánea.",
+      "foto": "equipo-christian-carl.jpg",
+      "encuadre": "50% 35%"
+    }
   ],
   "numeros": [
     {
@@ -25,26 +40,101 @@
       "creditoPortada": "Fotografía de portada por Christian Carl. Contraportada: fotografía de un aficionado anónimo de un álbum de principios del siglo XX.",
       "precio": "",
       "dondeComprar": "",
-      "invitados": ["Leonora Vicuña", "Loreto Vergara", "Marcela Toledo", "Camilo Durán"],
+      "invitados": [
+        "Leonora Vicuña",
+        "Loreto Vergara",
+        "Marcela Toledo",
+        "Camilo Durán"
+      ],
       "agradecimientos": "Agradecemos en especial a Leonora Vicuña por su apoyo desde el minuto cero del proyecto, a Loreto Vergara por su gran disposición para participar, a Marcela Toledo por su gran motivación, a Camilo Durán por crear un ensayo especial para la publicación y a Wallmapu Foto por generar la instancia que nos permitió impulsar este proyecto editorial.",
       "colofon": "Edición, diseño, corrección de textos e impresión por BackFocus Zine, de forma remota desde Pucón y Santiago de Chile, entre julio y agosto de 2026."
     }
   ],
   "textos": {
-    "esa-sospechosa-nueva-forma-de-mirar": { "titulo": "Esa sospechosa nueva forma de mirar", "bajada": "Texto editorial de agosto de 2026", "autor": "Freddy Briones Parra", "seccion": "Editorial", "pagina": 3 },
-    "resistir-es-volver-el-cuerpo": { "titulo": "Resistir es volver el cuerpo", "bajada": "La protesta como acto performático", "autor": "Marcela Toledo", "seccion": "Ensayo", "pagina": 4, "invitado": true },
-    "un-error-en-la-matrix": { "titulo": "Un error en la matrix", "bajada": "Una reflexión acerca de lo real y lo accidental en fotografía", "autor": "Freddy Briones Parra", "seccion": "Artículo", "pagina": 6 },
-    "esto-ha-sido": { "titulo": "Esto ha sido", "bajada": "Notas sobre fotografía y memoria", "autor": "Camilo Durán", "seccion": "Ensayo", "pagina": 10, "invitado": true },
-    "proceso-analogo-e-hipertecnologia": { "titulo": "Proceso análogo e hipertecnología", "bajada": "Entrevista a Leonora Vicuña", "autor": "Domingo Fernández K.", "seccion": "Entrevista", "pagina": 12, "invitado": true },
-    "sandy-la-marilyn-del-puerto": { "titulo": "Sandy, la Marilyn del Puerto", "bajada": "Una memoria personal en diálogo con la historia social del puerto y sus dinámicas nocturnas", "autor": "Loreto Vergara", "seccion": "Ensayo", "pagina": 18, "invitado": true },
-    "qawaq-interpretacion-algoritmica-de-imagenes": { "titulo": "QAWAQ", "bajada": "Interpretación algorítmica de imágenes", "autor": "Domingo Fernández K.", "seccion": "Artículo", "pagina": 22 },
-    "la-sospecha-permanente": { "titulo": "La sospecha permanente", "bajada": "Muy perfecto para ser real", "autor": "Christian Carl", "seccion": "Artículo", "pagina": 26 },
-    "acerca-del-purismo-en-fotografia": { "titulo": "Acerca del purismo en fotografía", "bajada": "Una revisión al desacuerdo permanente entre defensores y detractores", "autor": "Freddy Briones Parra", "seccion": "Artículo", "pagina": 30 }
+    "esa-sospechosa-nueva-forma-de-mirar": {
+      "titulo": "Esa sospechosa nueva forma de mirar",
+      "bajada": "Texto editorial de agosto de 2026",
+      "autor": "Freddy Briones Parra",
+      "seccion": "Editorial",
+      "pagina": 3
+    },
+    "resistir-es-volver-el-cuerpo": {
+      "titulo": "Resistir es volver el cuerpo",
+      "bajada": "La protesta como acto performático",
+      "autor": "Marcela Toledo",
+      "seccion": "Ensayo",
+      "pagina": 4,
+      "invitado": true
+    },
+    "un-error-en-la-matrix": {
+      "titulo": "Un error en la matrix",
+      "bajada": "Una reflexión acerca de lo real y lo accidental en fotografía",
+      "autor": "Freddy Briones Parra",
+      "seccion": "Artículo",
+      "pagina": 6
+    },
+    "esto-ha-sido": {
+      "titulo": "Esto ha sido",
+      "bajada": "Notas sobre fotografía y memoria",
+      "autor": "Camilo Durán",
+      "seccion": "Ensayo",
+      "pagina": 10,
+      "invitado": true
+    },
+    "proceso-analogo-e-hipertecnologia": {
+      "titulo": "Proceso análogo e hipertecnología",
+      "bajada": "Entrevista a Leonora Vicuña",
+      "autor": "Domingo Fernández K.",
+      "seccion": "Entrevista",
+      "pagina": 12,
+      "invitado": true
+    },
+    "sandy-la-marilyn-del-puerto": {
+      "titulo": "Sandy, la Marilyn del Puerto",
+      "bajada": "Una memoria personal en diálogo con la historia social del puerto y sus dinámicas nocturnas",
+      "autor": "Loreto Vergara",
+      "seccion": "Ensayo",
+      "pagina": 18,
+      "invitado": true
+    },
+    "qawaq-interpretacion-algoritmica-de-imagenes": {
+      "titulo": "QAWAQ",
+      "bajada": "Interpretación algorítmica de imágenes",
+      "autor": "Domingo Fernández K.",
+      "seccion": "Artículo",
+      "pagina": 22
+    },
+    "la-sospecha-permanente": {
+      "titulo": "La sospecha permanente",
+      "bajada": "Muy perfecto para ser real",
+      "autor": "Christian Carl",
+      "seccion": "Artículo",
+      "pagina": 26
+    },
+    "acerca-del-purismo-en-fotografia": {
+      "titulo": "Acerca del purismo en fotografía",
+      "bajada": "Una revisión al desacuerdo permanente entre defensores y detractores",
+      "autor": "Freddy Briones Parra",
+      "seccion": "Artículo",
+      "pagina": 30
+    }
   },
   "secciones": {
-    "Artículo": { "plural": "Artículos", "slug": "articulos" },
-    "Ensayo": { "plural": "Ensayos", "slug": "ensayos" },
-    "Entrevista": { "plural": "Entrevistas", "slug": "entrevistas" },
-    "Editorial": { "plural": "Editorial", "slug": "editorial" }
+    "Artículo": {
+      "plural": "Artículos",
+      "slug": "articulos"
+    },
+    "Ensayo": {
+      "plural": "Ensayos",
+      "slug": "ensayos"
+    },
+    "Entrevista": {
+      "plural": "Entrevistas",
+      "slug": "entrevistas"
+    },
+    "Editorial": {
+      "plural": "Editorial",
+      "slug": "editorial"
+    }
   }
 }
