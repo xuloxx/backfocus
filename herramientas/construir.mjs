@@ -58,6 +58,7 @@ function documento({ titulo, descripcion, ruta, imagen, cuerpo, script = "" }) {
 <meta property="og:url" content="${S.dominio}${ruta}">
 <meta property="og:image" content="${og}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#131313">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

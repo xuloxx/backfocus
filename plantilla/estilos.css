@@ -2,16 +2,18 @@
    Diseño: la hoja impresa del zine. Papel gris, tinta negra, Roboto Slab para títulos y Helvetica para leer.
    Columna de lectura de ~66 caracteres, fotos que se salen de la columna, índice con números de página del impreso. */
 
+/* Siempre en negro, en computador y en celular, sin importar el modo del dispositivo */
 :root {
-  --papel: #e6e6e4;
-  --hoja: #f4f4f2;
-  --tinta: #161616;
-  --grafito: #343434;
-  --gris: #686866;
-  --linea: #bdbdba;
-  --etiqueta: #343434;
-  --etiqueta-texto: #f4f4f2;
-  --sombra: rgba(0, 0, 0, .28);
+  color-scheme: dark;
+  --papel: #131313;
+  --hoja: #1c1c1c;
+  --tinta: #ebebe9;
+  --grafito: #cfcfcd;
+  --gris: #9a9a98;
+  --linea: #3a3a39;
+  --etiqueta: #ebebe9;
+  --etiqueta-texto: #131313;
+  --sombra: rgba(0, 0, 0, .6);
 
   --display: "Roboto Slab", "Museo Slab", Rockwell, Georgia, serif;
   --texto: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -27,32 +29,6 @@
   --lectura: 40rem;
   --gutter-izq: max(16px, env(safe-area-inset-left, 0px));
   --gutter-der: max(16px, env(safe-area-inset-right, 0px));
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --papel: #131313;
-    --hoja: #1c1c1c;
-    --tinta: #ebebe9;
-    --grafito: #cfcfcd;
-    --gris: #9a9a98;
-    --linea: #3a3a39;
-    --etiqueta: #ebebe9;
-    --etiqueta-texto: #131313;
-    --sombra: rgba(0, 0, 0, .6);
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --papel: #131313;
-  --hoja: #1c1c1c;
-  --tinta: #ebebe9;
-  --grafito: #cfcfcd;
-  --gris: #9a9a98;
-  --linea: #3a3a39;
-  --etiqueta: #ebebe9;
-  --etiqueta-texto: #131313;
-  --sombra: rgba(0, 0, 0, .6);
-  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
