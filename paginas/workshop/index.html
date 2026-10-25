@@ -43,18 +43,8 @@
   --display:"Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
   --body:"Public Sans", "Segoe UI", system-ui, sans-serif;
   --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --paper:#0f0f0f; --paper-2:#1a1a1a; --ink:#f4f4f1; --ink-2:#a6a6a2; --rule:#2e2e2e;
-  --hi:#f5c400; --hi-ink:#111111;
-  --cobalt:#f5c400; --cobalt-ink:#111111; --marker:#f5c400; --film:#000000; --film-ink:#f5c400; --ok:#f5c400; --logo-filter:invert(1); --map-filter:invert(.92) hue-rotate(180deg) brightness(.95) contrast(.9);
-  color-scheme:dark;
-}}
-:root[data-theme="dark"]{
-  --paper:#0f0f0f; --paper-2:#1a1a1a; --ink:#f4f4f1; --ink-2:#a6a6a2; --rule:#2e2e2e;
-  --hi:#f5c400; --hi-ink:#111111;
-  --cobalt:#f5c400; --cobalt-ink:#111111; --marker:#f5c400; --film:#000000; --film-ink:#f5c400; --ok:#f5c400; --logo-filter:invert(1); --map-filter:invert(.92) hue-rotate(180deg) brightness(.95) contrast(.9);
-  color-scheme:dark;
+  /* Siempre fondo blanco, aunque el dispositivo esté en modo oscuro */
+  color-scheme:light;
 }
 *{box-sizing:border-box}
 body > :not(.reel):not(main),main > :not(#lugar),#lugar .frame-head,#lugar .venue-info,#lugar figcaption,.reel-bar,.reel-dots{filter:grayscale(1)}
