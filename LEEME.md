@@ -9,6 +9,7 @@ Sitio estático del fanzine BackFocus: portada del número, los textos completos
 - `contenido/img/`: las fotos.
 - `plantilla/estilos.css`: el diseño.
 - `herramientas/construir.mjs`: genera el sitio en `sitio/`.
+- `paginas/workshop/`: la landing del Workshop de Fotografía de Protestas (diseño propio). Se publica tal cual en `/workshop/`.
 - `herramientas/importar.mjs`: vuelve a convertir una exportación de WordPress (`_importado/`) en `contenido/`.
 
 ## Ver el sitio en tu computador

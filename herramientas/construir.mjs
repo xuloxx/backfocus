@@ -14,6 +14,8 @@ fs.rmSync(salida, { recursive: true, force: true });
 fs.mkdirSync(path.join(salida, "img"), { recursive: true });
 for (const f of fs.readdirSync(path.join(base, "contenido", "img"))) fs.copyFileSync(path.join(base, "contenido", "img", f), path.join(salida, "img", f));
 fs.copyFileSync(path.join(base, "plantilla", "estilos.css"), path.join(salida, "estilos.css"));
+// Páginas con diseño propio, copiadas tal cual: paginas/workshop/ → /workshop/
+if (fs.existsSync(path.join(base, "paginas"))) fs.cpSync(path.join(base, "paginas"), salida, { recursive: true });
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -26,7 +28,7 @@ const textos = Object.entries(S.textos)
 const seccionDe = (t) => S.secciones[t.seccion];
 
 // ---------- Piezas comunes ----------
-const menu = [["/", "Inicio"], ["/textos/", "Textos"], ["/numero-01/", "Número 01"], ["/about/", "Nosotros"], ["/contacto/", "Contacto"]];
+const menu = [["/", "Inicio"], ["/textos/", "Textos"], ["/numero-01/", "Número 01"], ["/workshop/", "Workshop"], ["/about/", "Nosotros"], ["/contacto/", "Contacto"]];
 
 function documento({ titulo, descripcion, ruta, imagen, cuerpo, script = "" }) {
   const tituloCompleto = ruta === "/" ? `${S.nombre} · ${S.bajada}` : `${titulo} · ${S.nombre}`;
@@ -79,6 +81,7 @@ ${cuerpo}
       <h2>Zine</h2>
       <ul>
         <li><a href="/numero-01/">Número 01 · ${esc(N.fecha)}</a></li>
+        <li><a href="/workshop/">Workshop</a></li>
         <li><a href="/about/">Nosotros</a></li>
         <li><a href="/contacto/">Contacto</a></li>
         ${S.contacto.instagram ? `<li><a href="https://instagram.com/${esc(S.contacto.instagram.replace(/^@/, ""))}" rel="me">Instagram</a></li>` : ""}
@@ -143,6 +146,17 @@ escribir("/", documento({
       </div>
       ${indice()}
     </div>
+  </div>
+</section>
+
+<section class="aviso-workshop" aria-label="Workshop">
+  <div class="envoltura">
+    <a href="/workshop/">
+      <span class="etiqueta">Workshop gratuito</span>
+      <span class="aw-titulo">Fotografía de protestas y marchas</span>
+      <span class="aw-datos">Miércoles 25 y sábado 28 de noviembre · USACH, Santiago · En colaboración con el Departamento de las Culturas y las Artes, USACH</span>
+      <span class="aw-ir">Ver programa e inscripciones →</span>
+    </a>
   </div>
 </section>
 
@@ -377,7 +391,7 @@ escribir("/404.html", documento({
 }));
 fs.writeFileSync(path.join(salida, "favicon.svg"), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#161616"/><text x="32" y="46" font-family="Roboto Slab, Georgia, serif" font-weight="900" font-size="40" text-anchor="middle" fill="#e6e6e4">B</text></svg>`);
 fs.writeFileSync(path.join(salida, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${S.dominio}/sitemap.xml\n`);
-const rutas = ["/", "/textos/", "/numero-01/", "/about/", "/contacto/", ...textos.map((t) => t.url), ...Object.values(S.secciones).map((s) => `/category/${s.slug}/`)];
+const rutas = ["/", "/textos/", "/numero-01/", "/workshop/", "/about/", "/contacto/", ...textos.map((t) => t.url), ...Object.values(S.secciones).map((s) => `/category/${s.slug}/`)];
 fs.writeFileSync(path.join(salida, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rutas.map((r) => `  <url><loc>${S.dominio}${r}</loc></url>`).join("\n")}\n</urlset>\n`);
 
 const faltan = [!S.contacto.correo && "correo", !S.contacto.instagram && "instagram", !N.precio && "precio", !N.dondeComprar && "dónde comprar"].filter(Boolean);

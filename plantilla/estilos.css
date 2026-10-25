@@ -140,6 +140,16 @@ p { text-wrap: pretty; }
 .indice .por { display: block; font: 400 var(--t-xs)/1.3 var(--texto); color: var(--gris); margin-top: .2rem; }
 .indice a:hover .nom { text-decoration: underline; text-underline-offset: .18em; }
 
+/* ---------- Aviso del workshop en el inicio ---------- */
+.aviso-workshop a {
+  display: grid; gap: .6rem; justify-items: start; text-decoration: none;
+  border-top: 2px solid var(--tinta); border-bottom: 1px solid var(--linea); padding-block: 1.6rem;
+}
+.aviso-workshop .aw-titulo { font: 300 var(--t-xl)/1.1 var(--display); }
+.aviso-workshop .aw-datos { color: var(--grafito); font-size: var(--t-s); max-width: 46rem; }
+.aviso-workshop .aw-ir { font: 700 var(--t-s)/1 var(--texto); }
+.aviso-workshop a:hover .aw-titulo { text-decoration: underline; text-underline-offset: .15em; }
+
 /* ---------- Encabezado de sección ---------- */
 .seccion { padding-block: 3rem 1rem; }
 .seccion-titulo { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .5rem 2rem; border-top: 2px solid var(--tinta); padding-top: 1rem; margin-bottom: 2rem; }

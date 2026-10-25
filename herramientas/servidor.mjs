@@ -5,7 +5,7 @@ import path from "node:path";
 
 const root = path.resolve(process.argv[2] || path.join(import.meta.dirname, "..", "sitio"));
 const port = Number(process.argv[3] || 5180);
-const tipos = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".mjs": "text/javascript", ".css": "text/css", ".json": "application/json", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".svg": "image/svg+xml", ".webp": "image/webp" };
+const tipos = { ".html": "text/html; charset=utf-8", ".js": "text/javascript", ".mjs": "text/javascript", ".css": "text/css", ".json": "application/json", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".svg": "image/svg+xml", ".webp": "image/webp", ".avif": "image/avif", ".ico": "image/x-icon", ".txt": "text/plain; charset=utf-8", ".xml": "application/xml" };
 
 http.createServer((req, res) => {
   const url = decodeURIComponent(req.url.split("?")[0]);  let file = path.join(root, url);
