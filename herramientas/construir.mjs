@@ -13,7 +13,8 @@ const N = S.numeros[0];
 fs.rmSync(salida, { recursive: true, force: true });
 fs.mkdirSync(path.join(salida, "img"), { recursive: true });
 for (const f of fs.readdirSync(path.join(base, "contenido", "img"))) fs.copyFileSync(path.join(base, "contenido", "img", f), path.join(salida, "img", f));
-fs.copyFileSync(path.join(base, "plantilla", "estilos.css"), path.join(salida, "estilos.css"));
+const menuCss = fs.readFileSync(path.join(base, "plantilla", "menu.css"), "utf8");
+fs.writeFileSync(path.join(salida, "estilos.css"), fs.readFileSync(path.join(base, "plantilla", "estilos.css"), "utf8") + "\n" + menuCss);
 // Páginas con diseño propio, copiadas tal cual: paginas/workshop/ → /workshop/
 if (fs.existsSync(path.join(base, "paginas"))) fs.cpSync(path.join(base, "paginas"), salida, { recursive: true });
 
@@ -30,15 +31,36 @@ const seccionDe = (t) => S.secciones[t.seccion];
 // ---------- Piezas comunes ----------
 const menu = [["/", "Inicio"], ["/textos/", "Textos"], ["/numero-01/", "Número 01"], ["/workshop/", "Workshop"], ["/about/", "Nosotros"], ["/contacto/", "Contacto"]];
 
-// Cabecera con el menú del sitio (también se inserta en las páginas de /paginas)
+// Cabecera con el menú del sitio (también se inserta en las páginas de /paginas).
+// En celular el menú se pliega tras un botón de hamburguesa; sin JavaScript queda visible como lista.
+const scriptMenu = `<script>
+(() => {
+  const raiz = document.documentElement;
+  raiz.classList.add("bf-js");
+  const boton = document.querySelector(".menu-boton");
+  const menu = document.getElementById("menu-principal");
+  if (!boton || !menu) return;
+  const poner = (abierto) => {
+    raiz.classList.toggle("menu-abierto", abierto);
+    boton.setAttribute("aria-expanded", String(abierto));
+    boton.setAttribute("aria-label", abierto ? "Cerrar menú" : "Abrir menú");
+  };
+  boton.addEventListener("click", () => poner(!raiz.classList.contains("menu-abierto")));
+  menu.addEventListener("click", (e) => { if (e.target.closest("a")) poner(false); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && raiz.classList.contains("menu-abierto")) { poner(false); boton.focus(); } });
+  matchMedia("(min-width: 761px)").addEventListener("change", () => poner(false));
+})();
+</script>`;
 const cabecera = (ruta) => `<header class="cabecera">
   <div class="envoltura">
     <a class="marca" href="/">${esc(S.nombre)}<small>${esc(S.bajada)}</small></a>
-    <nav class="menu" aria-label="Principal">
+    <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú"><span></span><span></span></button>
+    <nav class="menu" id="menu-principal" aria-label="Principal">
       ${menu.map(([href, nombre]) => `<a href="${href}"${ruta === href ? ' aria-current="page"' : ""}>${nombre}</a>`).join("\n      ")}
     </nav>
   </div>
-</header>`;
+</header>
+${scriptMenu}`;
 
 function documento({ titulo, descripcion, ruta, imagen, cuerpo, script = "" }) {
   const tituloCompleto = ruta === "/" ? `${S.nombre} · ${S.bajada}` : `${titulo} · ${S.nombre}`;
@@ -404,21 +426,18 @@ console.log(`Sitio generado en /sitio: ${rutas.length} páginas.${faltan.length 
 // ---------- Menú del sitio en las páginas con diseño propio ----------
 // Cada página de /paginas marca dónde va el menú con <!-- menu-backfocus -->. Como esas páginas no cargan
 // estilos.css, el menú lleva sus propios estilos, siempre en claro.
-const estiloMenu = `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@900&display=swap">
+const estiloMenu = `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;900&display=swap">
 <style>
-.bf-sitio{background:#f4f4f2;color:#161616;border-bottom:1px solid #bdbdba;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;position:relative;z-index:50}
-.bf-sitio .envoltura{max-width:1272px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.75rem 2rem;padding-block:1.1rem}
-.bf-sitio .marca{font:900 1.75rem/1 "Roboto Slab",Rockwell,Georgia,serif;letter-spacing:-.01em;color:#161616;text-decoration:none}
-.bf-sitio .marca small{display:block;font:700 .8125rem/1.2 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:0;margin-top:.25rem}
-.bf-sitio .menu{display:flex;flex-wrap:wrap;gap:.25rem 1.4rem;font:700 .9375rem/1 "Helvetica Neue",Helvetica,Arial,sans-serif}
-.bf-sitio .menu a{color:#161616;text-decoration:none;padding-block:.35rem;border-bottom:2px solid transparent}
-.bf-sitio .menu a:hover,.bf-sitio .menu a[aria-current="page"]{border-bottom-color:#161616}
-.bf-sitio a:focus-visible{outline:2px solid #161616;outline-offset:3px}
+/* Colores y tipografías del menú dentro de la página del workshop (siempre en claro) */
+.bf-sitio{--papel:#f4f4f2;--tinta:#161616;--linea:#bdbdba;--display:"Roboto Slab",Rockwell,Georgia,serif;--texto:"Helvetica Neue",Helvetica,Arial,sans-serif;--t-xs:.8125rem;--t-s:.9375rem;--ancho:1240px;--gutter-izq:max(16px,env(safe-area-inset-left,0px));--gutter-der:max(16px,env(safe-area-inset-right,0px));font-family:var(--texto);filter:none!important;position:relative;z-index:60}
+.bf-sitio .marca small{font-family:var(--texto)}
+${menuCss}
 </style>`;
 for (const carpeta of fs.existsSync(path.join(base, "paginas")) ? fs.readdirSync(path.join(base, "paginas")) : []) {
   const archivo = path.join(salida, carpeta, "index.html");
   if (!fs.existsSync(archivo)) continue;
   const html = fs.readFileSync(archivo, "utf8");
   if (!html.includes("<!-- menu-backfocus -->")) { console.warn(`Aviso: paginas/${carpeta}/index.html no tiene <!-- menu-backfocus -->`); continue; }
-  fs.writeFileSync(archivo, html.replace("<!-- menu-backfocus -->", `${estiloMenu}\n<div class="bf-sitio">${cabecera(`/${carpeta}/`).replace('<header class="cabecera">', "<header>")}</div>`));
+  fs.writeFileSync(archivo, html.replace("<!-- menu-backfocus -->", `${estiloMenu}
+<div class="bf-sitio">${cabecera(`/${carpeta}/`)}</div>`));
 }

@@ -1,0 +1,49 @@
+/* Cabecera y menú del sitio. Se agrega al final de estilos.css y también se inserta en las páginas con
+   diseño propio (como /workshop/), que definen sus propios colores en .bf-sitio.
+   En celular el menú se pliega tras un botón de hamburguesa y se abre a pantalla completa. */
+
+.cabecera { background: var(--papel); color: var(--tinta); border-bottom: 1px solid var(--linea); position: relative; z-index: 50; }
+.cabecera .envoltura {
+  width: 100%; max-width: calc(var(--ancho) + 32px); margin-inline: auto;
+  padding-left: var(--gutter-izq); padding-right: var(--gutter-der); padding-block: 1.1rem;
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .75rem 2rem;
+}
+.cabecera .marca { font: 900 1.75rem/1 var(--display); letter-spacing: -.01em; color: var(--tinta); text-decoration: none; position: relative; z-index: 2; }
+.cabecera .marca small { display: block; font: 700 var(--t-xs)/1.2 var(--texto); letter-spacing: 0; margin-top: .25rem; }
+.menu { display: flex; flex-wrap: wrap; gap: .25rem 1.4rem; font: 700 var(--t-s)/1 var(--texto); }
+.menu a { color: var(--tinta); text-decoration: none; padding-block: .35rem; border-bottom: 2px solid transparent; }
+.menu a:hover, .menu a[aria-current="page"] { border-bottom-color: var(--tinta); }
+.cabecera a:focus-visible, .menu-boton:focus-visible { outline: 2px solid var(--tinta); outline-offset: 3px; }
+.menu-boton { display: none; }
+
+@media (max-width: 760px) {
+  .bf-js .cabecera .envoltura { flex-wrap: nowrap; align-items: center; }
+  .bf-js .menu-boton {
+    display: inline-grid; place-content: center; gap: 7px;
+    width: 44px; height: 44px; margin-right: -8px; padding: 0;
+    background: none; border: 0; color: var(--tinta); cursor: pointer;
+    position: relative; z-index: 2;
+  }
+  .menu-boton span { display: block; width: 26px; height: 2px; background: currentColor; transition: transform .3s ease; }
+  .menu-abierto .menu-boton span:first-child { transform: translateY(4.5px) rotate(45deg); }
+  .menu-abierto .menu-boton span:last-child { transform: translateY(-4.5px) rotate(-45deg); }
+
+  .bf-js .menu {
+    position: fixed; inset: 0; z-index: 1;
+    flex-direction: column; flex-wrap: nowrap; gap: 0;
+    background: var(--papel);
+    padding: calc(6.5rem + env(safe-area-inset-top, 0px)) var(--gutter-der) calc(2rem + env(safe-area-inset-bottom, 0px)) var(--gutter-izq);
+    overflow-y: auto;
+    font: 300 clamp(1.9rem, 8vw, 2.6rem)/1.1 var(--display);
+    opacity: 0; visibility: hidden; transform: translateY(-12px);
+    transition: opacity .25s ease, transform .3s ease, visibility 0s linear .3s;
+  }
+  .bf-js .menu a { padding-block: .85rem; border-bottom: 1px solid var(--linea); }
+  .bf-js .menu a[aria-current="page"] { border-bottom-color: var(--linea); }
+  .bf-js .menu a[aria-current="page"]::before { content: "→ "; }
+  .menu-abierto .menu { opacity: 1; visibility: visible; transform: none; transition: opacity .25s ease, transform .3s ease; }
+  .menu-abierto, .menu-abierto body { overflow: hidden; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu, .menu-boton span { transition: none !important; }
+}

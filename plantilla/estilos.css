@@ -76,13 +76,7 @@ p { text-wrap: pretty; }
 .boton.lleno { background: var(--tinta); color: var(--papel); }
 .boton:hover { background: var(--tinta); color: var(--papel); }
 
-/* ---------- Cabecera y pie ---------- */
-.cabecera { border-bottom: 1px solid var(--linea); }
-.cabecera .envoltura { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .75rem 2rem; padding-block: 1.1rem; }
-.cabecera .marca small { display: block; font: 700 var(--t-xs)/1.2 var(--texto); letter-spacing: 0; margin-top: .25rem; }
-.menu { display: flex; flex-wrap: wrap; gap: .25rem 1.4rem; font: 700 var(--t-s)/1 var(--texto); }
-.menu a { text-decoration: none; padding-block: .35rem; border-bottom: 2px solid transparent; }
-.menu a:hover, .menu a[aria-current="page"] { border-bottom-color: var(--tinta); }
+/* ---------- Pie (la cabecera y el menú están en plantilla/menu.css) ---------- */
 
 .pie { margin-top: 6rem; border-top: 1px solid var(--linea); background: var(--hoja); }
 .pie .envoltura { display: grid; gap: 2rem; grid-template-columns: 2fr 1fr 1fr; padding-block: 3rem 2.5rem; }
